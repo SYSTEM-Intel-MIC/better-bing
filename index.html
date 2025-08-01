@@ -335,32 +335,9 @@
             font-weight: 500;
         }
 
+        /* backgroundInput 保持隐藏，但不再需要预览相关的样式 */
         #backgroundInput {
             display: none;
-        }
-
-        /* 背景图片预览区域 */
-        .bg-preview-container {
-            padding: 12px;
-            background: #f9f9f9;
-            border-radius: 8px;
-            margin-top: 15px;
-            border: 1px dashed #ddd;
-            display: none;
-        }
-
-        #bgPreview {
-            width: 100%;
-            height: 110px;
-            border-radius: 6px;
-            background: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-            font-size: 0.9rem;
-            text-align: center;
-            padding: 0 10px;
         }
 
         .modal {
@@ -663,20 +640,18 @@
                 <div class="save-notice" id="downloadSaveNotice">
                     <i class="fas fa-check-circle"></i> 您的屏蔽设置已自动保存
                 </div>
-
-                <div class="bg-preview-container" id="bgPreviewContainer">
-                    <div id="bgPreview">选择图片后将在此处显示预览</div>
-                    <input type="file" id="backgroundInput" accept="image/*">
-                </div>
             </div>
         </div>
 
         <div class="footer">
             <span>更好的必应 - 让搜索回归纯净本质</span>
-            <span>© 2023</span>
+            <span>© 2025</span>
             <a href="#" id="settingStatus">设置已自动保存</a>
         </div>
     </div>
+
+    <!-- 隐藏的背景图片文件输入框，用于触发文件选择 -->
+    <input type="file" id="backgroundInput" accept="image/*">
 
     <script>
         // 页面加载时加载保存的设置
@@ -776,11 +751,6 @@
                         document.body.style.backgroundSize = 'cover';
                         // 保存到localStorage
                         localStorage.setItem('customBackground', imageData);
-
-                        // 显示预览
-                        const bgPreview = document.getElementById('bgPreview');
-                        bgPreview.innerHTML = `<img src="${imageData}" style="width:100%;height:100%;object-fit:cover;border-radius:6px;">`;
-                        document.getElementById('bgPreviewContainer').style.display = 'block';
 
                         // 显示成功对话框
                         document.getElementById('confirmModal').style.display = 'flex';
@@ -990,17 +960,14 @@
             document.body.style.background = `url(${defaultBg}) no-repeat center center fixed`;
             document.body.style.backgroundSize = 'cover';
 
-            // 4. 隐藏背景预览
-            document.getElementById('bgPreviewContainer').style.display = 'none';
-
-            // 5. 更新状态提示
+            // 4. 更新状态提示
             document.getElementById('settingStatus').innerHTML = '设置已恢复默认';
             document.getElementById('settingStatus').style.color = '#4caf50';
 
-            // 6. 显示成功通知
+            // 5. 显示成功通知
             showAlert('所有设置已成功恢复默认值', '#4caf50');
 
-            // 7. 3秒后恢复状态文本
+            // 6. 3秒后恢复状态文本
             setTimeout(() => {
                 document.getElementById('settingStatus').style.color = '#ffc107';
                 document.getElementById('settingStatus').innerHTML = '设置已自动保存';
